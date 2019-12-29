@@ -1,0 +1,85 @@
+<div class="search">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-12">
+        <form>
+          <div class="row">
+            <div class="col-8">
+              <div class="form-inline">
+                <label for="">Role Search:  </label>
+                <input type="search" name="search" class="form-control form-control-large" #searchParam>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="buttons">
+                <button class="btn btn-primary btn-search mr-5" (click)="searchQuery = searchParam.value">Search</button>
+                <button class="btn btn-danger btn-reset" (click)="searchQuery = ''; searchParam.value = ''">Reset</button>
+              </div>
+            </div>
+          </div>
+      </form>
+      </div>
+    </div>
+    <div class="row">
+      <table class="table">
+        <thead class="thead-green">
+          <tr>
+            <th scope="col">
+              <input type="checkbox" [(ngModel)]="selectedAll" (change)="selectAll()">
+            </th>
+            <th scope="col">Role Name</th>
+            <th scope="col">Date</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of roles | paginate: { itemsPerPage: 5, currentPage: p } | filter: searchQuery ; let i = index">
+            <td class="tdCustmize" #row>
+              <input type="checkbox" [(ngModel)]="item.selected" (change)="checkIfAllSelected();">
+              <div class="tooltip1" (click)="showBtn(i)" >
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <!-- [ngClass]="showUtilites ? 'showBtn': 'hideBtn'" -->
+              <div class="buttons" *ngIf="showUtilites[i]">
+                <img src="../../../assets/images/edit.png" (click)="editRole(item)" alt="">
+                <img src="../../../assets/images/delete.png" (click)="deleteRole(item._id)" alt="">
+              </div>
+              <!-- <img src="../../../assets/images/edit.png" (click)="editRole(item)" alt="">
+              <div class="utilis-buttons">
+                <img src="../../../assets/images/edit.png" (click)="editRole(item)" alt="">
+                <img src="../../../assets/images/delete.png" (click)="deleteRole(item._id)" alt="">
+              </div> -->
+
+              <!-- <span class="tooltip1"></span> -->
+
+              <!-- <div class="tooltip-utilis" *ngIf="0">
+
+              </div> -->
+            </td>
+            <td>{{item.name}}</td>
+            <td>{{item.date | date: 'dd/MM/yyyy'}}</td>
+            <td>{{item.status}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <!-- Pagination -->
+    <div class="row">
+      <div class="col-12">
+        <div class="list">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+        <div class="col-12 text-center">
+          <button class="btn btn-success mr-5" routerLink="/add"> + Add </button>
+          <button class="btn btn-danger" (click)="deleteAll()" *ngIf="selectedAll"> - Delete All</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

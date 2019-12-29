@@ -1,0 +1,81 @@
+<div class="edit">
+  <div class="container">
+    <div class="row">
+      <div class="col-12" *ngIf="roleForm">
+        <form>
+          <div class="row">
+            <div class="col-12 mb-4">
+              <div class="form-inline">
+                <label for="">Role Name:</label>
+                <input [(ngModel)]="roleForm.name" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-input-text">
+              </div>
+            </div>
+            <div class="col-12 mb-4">
+              <div class="form-inline">
+                <label for="">Main Program:  </label>
+                <select [(ngModel)]="roleForm.program" name="program" id="program" class="form-control form-select form-select-1">
+                  <option *ngFor="let prog of program" >{{prog}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-12 mb-4">
+              <div class="form-inline">
+                <label for="">Sub Program:  </label>
+                <select name="subProgram" id="subprogram" [(ngModel)]="roleForm.subProgram" class="form-control form-select form-select-2">
+
+                  <option name="subprogram" *ngFor="let subProg of subProgram">{{subProg}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-12 mb-4">
+              <div class="form-inline">
+                <label for="">Page:  </label>
+                <select name="pages" id="page" [(ngModel)]="roleForm.pages" class="form-control form-select form-select-3">
+                  <option name="page" *ngFor="let page of pages">{{page}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="example-container">
+                <h2>All Permissions</h2>
+
+                <div
+                  cdkDropList
+                  #permissionList="cdkDropList"
+                  [cdkDropListData]="permissions"
+                  [cdkDropListConnectedTo]="[allowedList]"
+                  class="example-list"
+                  (cdkDropListDropped)="drop($event)"
+                  >
+                  <div class="example-box" *ngFor="let item of permissions" cdkDrag>{{item}}</div>
+                </div>
+              </div>
+
+              <div class="example-container">
+                <h2>Alowed Permissions</h2>
+
+                <div
+                  cdkDropList
+                  #allowedList="cdkDropList"
+                  [cdkDropListData]="allowedPermissions"
+                  [cdkDropListConnectedTo]="[permissionList]"
+                  class="example-list"
+                  (cdkDropListDropped)="drop($event)">
+                  <div class="example-box" *ngFor="let item of allowedPermissions" cdkDrag>{{item}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row text-center">
+            <div class="col-12">
+              <button class="btn btn-lg btn-success mr-5" (click)="updateRole()"> Save </button>
+              <button class="btn btn-lg bg-light" routerLink="/"> Back </button>
+            </div>
+          </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
